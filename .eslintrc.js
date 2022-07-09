@@ -3,6 +3,8 @@ module.exports = {
   env: {
     node: true,
   },
+  // "linebreak-style": ["error", "unix"],
+  //"linebreak-style": ["error", "windows"],
   extends: [
     "plugin:vue/vue3-essential",
     "eslint:recommended",

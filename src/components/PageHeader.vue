@@ -28,6 +28,7 @@ export default {
   font-size: 16px;
   text-transform: uppercase;
   letter-spacing: 0.03em;
+  font-weight: 500;
 }
 .red-font {
   color: red;
