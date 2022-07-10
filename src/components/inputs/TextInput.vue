@@ -5,7 +5,7 @@
       <img
         v-if="type === 'password'"
         class="icon"
-        src="../assets/eye.svg"
+        src="../../assets/eye.svg"
         alt="Show password icon"
       />
       <input
@@ -21,6 +21,10 @@
         class="error"
         v-for="(error, index) of errors"
         :key="`error-${index}`"
+        :class="{
+          'success-message': error.checkResult && error.checked,
+          'error-message': !error.checkResult && error.checked,
+        }"
       >
         {{ error.message }}
       </div>
@@ -39,16 +43,13 @@ export default {
   },
   emits: ["setValue"],
   setup(props) {
-    const value = ref();
+    const value = ref("");
     const errors = computed(() => {
-      if (props.rules.length == 3) {
-        return [
-          { message: "At least 8 characters" },
-          { message: "At least one letter" },
-          { message: "At least one digit" },
-        ];
-      } else if (props.rules.length == 1) {
-        return [{ message: "You should be minium 18 years old" }];
+      if (props.rules.length) {
+        return props.rules.map((rule) => {
+          const checkResult = rule.check(value.value);
+          return { message: rule.message, checkResult, checked: !!value.value };
+        });
       }
       return [];
     });
@@ -106,5 +107,11 @@ label {
   right: 24px;
   min-width: 18px;
   text-align: center;
+}
+.success-message {
+  color: #27ae60;
+}
+.error-message {
+  color: #ec1115;
 }
 </style>

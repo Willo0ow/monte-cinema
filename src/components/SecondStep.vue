@@ -6,7 +6,7 @@
     </div>
     <div class="form-wrapper">
       <form @submit="event.preventDefault()">
-        <form-input
+        <text-input
           v-for="(input, index) of inputs"
           :key="`input-${index}`"
           :label="input.label"
@@ -16,7 +16,16 @@
           :rules="input.rules"
           @setValue="(value) => updateUserData({ property: input.name, value })"
         />
-        <form-checkbox
+        <date-input
+          label="Date of birth"
+          name="dateOfBirth"
+          placeholder="DD / MM / YYYY"
+          @setValue="
+            (value) => updateUserData({ property: 'dateOfBirth', value })
+          "
+          :rules="dateRules"
+        ></date-input>
+        <custom-checkbox
           label="I accept Privacy Policy"
           name="privacyPolicyAccepted"
           :rules="[]"
@@ -41,11 +50,18 @@
 import { inject } from "vue";
 import ContentTitle from "./ContentTitle.vue";
 import FormButton from "./FormButton.vue";
-import FormCheckbox from "./FormCheckbox.vue";
-import FormInput from "./FormInput.vue";
+import CustomCheckbox from "./inputs/CustomCheckbox.vue";
+import TextInput from "./inputs/TextInput.vue";
+import DateInput from "./inputs/DateInput.vue";
 export default {
   name: "PageContent",
-  components: { ContentTitle, FormInput, FormButton, FormCheckbox },
+  components: {
+    ContentTitle,
+    TextInput,
+    DateInput,
+    FormButton,
+    CustomCheckbox,
+  },
   setup() {
     const inputs = [
       {
@@ -62,12 +78,21 @@ export default {
         placeholder: "e.g. Walton",
         rules: [],
       },
+    ];
+    const checkAge = (date) => {
+      const [day, month, year] = date.split("/");
+      let birthDate = new Date();
+      birthDate.setDate(+day);
+      birthDate.setMonth(+month - 1);
+      birthDate.setFullYear(+year);
+      let dateToCompare = new Date();
+      dateToCompare.setFullYear(dateToCompare.getFullYear() - 18);
+      return birthDate < dateToCompare;
+    };
+    const dateRules = [
       {
-        label: "Date of birth",
-        name: "dateOfBirth",
-        type: "text",
-        placeholder: "DD / MM / YYYY",
-        rules: [1],
+        check: (val) => checkAge(val),
+        message: "You should be minium 18 years old",
       },
     ];
     const updateUserData = inject("updateUserData");
@@ -76,6 +101,7 @@ export default {
       inputs,
       updateUserData,
       setActiveTab,
+      dateRules,
     };
   },
 };

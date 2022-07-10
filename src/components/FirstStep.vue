@@ -9,7 +9,7 @@
     </div>
     <div class="form-wrapper">
       <form @submit="event.preventDefault()">
-        <form-input
+        <text-input
           v-for="(input, index) of inputs"
           :key="`input-${index}`"
           :label="input.label"
@@ -35,10 +35,10 @@
 import { inject } from "vue";
 import ContentTitle from "./ContentTitle.vue";
 import FormButton from "./FormButton.vue";
-import FormInput from "./FormInput.vue";
+import TextInput from "./inputs/TextInput.vue";
 export default {
   name: "PageContent",
-  components: { ContentTitle, FormInput, FormButton },
+  components: { ContentTitle, TextInput, FormButton },
   setup() {
     const inputs = [
       {
@@ -53,7 +53,14 @@ export default {
         name: "password",
         type: "password",
         placeholder: "Enter your password",
-        rules: [1, 2, 3],
+        rules: [
+          { check: (val) => val.length >= 8, message: "At least 8 characters" },
+          {
+            check: (val) => /[a-zA-Z]/.test(val),
+            message: "At least one letter",
+          },
+          { check: (val) => /\d/.test(val), message: "At least one digit" },
+        ],
       },
     ];
     const updateUserData = inject("updateUserData");
