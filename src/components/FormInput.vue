@@ -1,12 +1,20 @@
 <template>
   <div class="input-wrapper">
     <label :for="name">{{ label }}</label>
-    <input
-      :type="type"
-      :name="name"
-      :placeholder="placeholder"
-      @input="(event) => checkRules(event)"
-    />
+    <div class="input-container">
+      <img
+        v-if="type === 'password'"
+        class="icon"
+        src="../assets/eye.svg"
+        alt="Show password icon"
+      />
+      <input
+        :type="type"
+        :name="name"
+        :placeholder="placeholder"
+        @input="(event) => checkRules(event)"
+      />
+    </div>
     <div class="errors-wrapper">
       <div
         class="error"
@@ -80,5 +88,17 @@ label {
   display: block;
   color: #f47073;
   margin-bottom: 12px;
+}
+.input-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.icon {
+  position: absolute;
+  right: 24px;
+  min-width: 18px;
+  text-align: center;
 }
 </style>

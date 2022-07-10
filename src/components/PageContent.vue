@@ -1,17 +1,14 @@
 <template>
   <div id="content">
-    <div style="border: 1px red solid">
-      <div class="title-wrapper" style="border: 1px blue solid">
+    <div>
+      <div class="title-wrapper">
         <content-title text="Ahoy you!" textColor="#343541"></content-title>
         <content-title
           text="Care to register?"
           textColor="#85868d"
         ></content-title>
       </div>
-      <div
-        class="form-wrapper"
-        style="border: 1px green solid; min-height: 200px"
-      >
+      <div class="form-wrapper">
         <form>
           <form-input
             v-for="(input, index) of inputs"
@@ -22,6 +19,13 @@
             :placeholder="input.placeholder"
             :rules="input.rules"
           />
+          <div class="buttons-wrapper">
+            <form-button
+              label="Log in instead"
+              :isPrimary="false"
+            ></form-button>
+            <form-button label="Register"></form-button>
+          </div>
         </form>
       </div>
     </div>
@@ -31,10 +35,11 @@
 
 <script>
 import ContentTitle from "./ContentTitle.vue";
+import FormButton from "./FormButton.vue";
 import FormInput from "./FormInput.vue";
 export default {
   name: "PageContent",
-  components: { ContentTitle, FormInput },
+  components: { ContentTitle, FormInput, FormButton },
   setup() {
     const inputs = [
       {
@@ -72,5 +77,13 @@ export default {
   padding: 64px;
   box-sizing: border-box;
   margin-top: 40px;
+  background: #ffffff;
+  box-shadow: 0px 4px 22px rgba(52, 53, 65, 0.15);
+  border-radius: 24px;
+}
+.buttons-wrapper {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
 }
 </style>
