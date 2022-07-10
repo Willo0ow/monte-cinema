@@ -22,4 +22,10 @@ h1 {
   letter-spacing: -0.01em;
   margin: 0;
 }
+@media (max-width: 600px) {
+  h1 {
+    font-size: 40px;
+    text-align: center;
+  }
+}
 </style>

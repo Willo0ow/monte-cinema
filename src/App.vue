@@ -1,13 +1,15 @@
 <template>
   <div class="page">
     <page-header></page-header>
-    <page-content></page-content>
+    <div id="content">
+      <page-content></page-content>
+    </div>
   </div>
 </template>
 
 <script>
 import PageHeader from "./components/PageHeader.vue";
-import PageContent from "./components/PageContent.vue";
+import PageContent from "./components/FirstStep.vue";
 export default {
   name: "App",
   components: { PageHeader, PageContent },
@@ -22,5 +24,14 @@ body {
 .page {
   width: 100%;
   height: 100%;
+}
+#content {
+  height: calc(100vh - 98px);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
 }
 </style>

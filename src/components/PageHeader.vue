@@ -1,7 +1,7 @@
 <template>
-  <div id="header">
+  <div class="page-header">
     <img src="../assets/logo.svg" alt="logo" />
-    <div id="slogan">
+    <div class="slogan">
       Developed with <span class="red-font">♥</span> by Monterail
     </div>
   </div>
@@ -13,7 +13,7 @@ export default {
 };
 </script>
 <style scoped>
-#header {
+.page-header {
   height: 98px;
   padding: 25px 48px;
   display: flex;
@@ -23,7 +23,7 @@ export default {
   align-items: center;
   box-sizing: border-box;
 }
-#slogan {
+.slogan {
   font-family: "Roboto Mono", monospace;
   font-size: 16px;
   text-transform: uppercase;
@@ -32,5 +32,13 @@ export default {
 }
 .red-font {
   color: red;
+}
+@media (max-width: 600px) {
+  .slogan {
+    display: none;
+  }
+  .page-header {
+    justify-content: center;
+  }
 }
 </style>
