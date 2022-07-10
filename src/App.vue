@@ -10,9 +10,9 @@
 <script>
 import { reactive, ref, provide } from "vue";
 import PageHeader from "./components/PageHeader.vue";
-import FirstStep from "./components/FirstStep.vue";
-import SecondStep from "./components/SecondStep.vue";
-import RegistrationSummary from "./components/RegistrationSummary.vue";
+import FirstStep from "./steps/FirstStep.vue";
+import SecondStep from "./steps/SecondStep.vue";
+import RegistrationSummary from "./steps/RegistrationSummary.vue";
 export default {
   name: "App",
   components: { PageHeader, FirstStep, SecondStep, RegistrationSummary },

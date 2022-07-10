@@ -25,8 +25,8 @@
 
 <script>
 import { inject } from "vue";
-import ContentTitle from "./ContentTitle.vue";
-import FormButton from "./FormButton.vue";
+import ContentTitle from "../components/ContentTitle.vue";
+import FormButton from "../components/FormButton.vue";
 export default {
   name: "RegistrationSummary",
   components: { ContentTitle, FormButton },
