@@ -9,7 +9,7 @@
 
 <script>
 import PageHeader from "./components/PageHeader.vue";
-import PageContent from "./components/SecondStep.vue";
+import PageContent from "./components/RegistrationSummary.vue";
 export default {
   name: "App",
   components: { PageHeader, PageContent },
