@@ -5,7 +5,7 @@
       value="agreed"
       :name="name"
       v-model="value"
-      @change="(event) => $emit('setValue', event.target.checked)"
+      @change="(event) => updateValue(event.target.checked)"
     />
     <label :for="name">{{ label }}</label>
   </div>
@@ -19,11 +19,16 @@ export default {
     label: { type: String, default: "" },
     rules: { type: Array, default: () => [] },
   },
-  emits: ["setValue"],
-  setup() {
+  emits: ["setValue", "setValueValidation"],
+  setup(props, context) {
     const value = ref(false);
+    const updateValue = (newValue) => {
+      context.emit("setValue", newValue);
+      context.emit("setValueValidation", newValue);
+    };
     return {
       value,
+      updateValue,
     };
   },
 };

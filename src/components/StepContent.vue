@@ -19,6 +19,10 @@
           :placeholder="input.placeholder"
           :rules="input.rules"
           @setValue="(value) => updateUserData({ property: input.name, value })"
+          @setValueValidation="
+            (isValid) =>
+              updateUserDataValidation({ property: input.name, isValid })
+          "
         />
         <slot name="moreInputs"></slot>
         <div class="buttons-wrapper">
@@ -50,8 +54,10 @@ export default {
   },
   setup() {
     const updateUserData = inject("updateUserData");
+    const updateUserDataValidation = inject("updateUserDataValidation");
     return {
       updateUserData,
+      updateUserDataValidation,
     };
   },
 };

@@ -8,6 +8,10 @@
         @setValue="
           (value) => updateUserData({ property: 'dateOfBirth', value })
         "
+        @setValueValidation="
+          (isValid) =>
+            updateUserDataValidation({ property: 'dateOfBirth', isValid })
+        "
         :rules="dateRules"
       ></date-input>
       <custom-checkbox
@@ -17,6 +21,13 @@
         @setValue="
           (value) =>
             updateUserData({ property: 'privacyPolicyAccepted', value })
+        "
+        @setValueValidation="
+          (isValid) =>
+            updateUserDataValidation({
+              property: 'privacyPolicyAccepted',
+              isValid,
+            })
         "
       />
     </template>
@@ -69,6 +80,7 @@ export default {
       },
     ];
     const updateUserData = inject("updateUserData");
+    const updateUserDataValidation = inject("updateUserDataValidation");
     const setActiveTab = inject("setActiveTab");
     const title = [
       { text: "Great!", color: "#343541" },
@@ -85,6 +97,7 @@ export default {
     return {
       inputs,
       updateUserData,
+      updateUserDataValidation,
       setActiveTab,
       dateRules,
       buttons,

@@ -2,7 +2,7 @@
   <div class="step-wrapper">
     <div class="title-wrapper">
       <content-title
-        :text="`Good job ${userData.firstName}!`"
+        :text="`Good job ${userData.firstName.value}!`"
         textColor="#343541"
       ></content-title>
     </div>
@@ -10,7 +10,7 @@
     <div class="message">
       <p>
         We have sent you an email to
-        <strong>{{ userData.email }}</strong
+        <strong>{{ userData.email.value }}</strong
         >.
       </p>
       <p>

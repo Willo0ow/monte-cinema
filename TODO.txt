@@ -1,0 +1,6 @@
+# read.me
+# prevent form default event 
+# empty links login, homepage, privacy terms
+# media query breakpoint
+# fixed header -> nav
+# hover & active

@@ -2,7 +2,7 @@
   <div class="page">
     <page-header></page-header>
     <div id="content">
-      <component :is="activeTab"></component>
+      <component :is="activeTab" />
     </div>
   </div>
 </template>
@@ -18,20 +18,38 @@ export default {
   components: { PageHeader, FirstStep, SecondStep, RegistrationSummary },
   setup() {
     const activeTab = ref("FirstStep");
-    const setActiveTab = (newTab) => (activeTab.value = newTab);
+    const setActiveTab = (newTab) => {
+      const isStepFormValid = Object.keys(userData).reduce(
+        (allValid, property) => {
+          allValid =
+            userData[property].step === activeTab.value
+              ? allValid && userData[property].isValid
+              : allValid;
+          return allValid;
+        },
+        true
+      );
+      if (isStepFormValid) {
+        activeTab.value = newTab;
+      }
+    };
     provide("setActiveTab", setActiveTab);
     const userData = reactive({
-      email: "",
-      password: "",
-      firstName: "",
-      lastName: "",
-      dateOfBirth: "",
-      privacyPolicyAccepted: false,
+      email: { value: "", isValid: false, step: "FirstStep" },
+      password: { value: "", isValid: false, step: "FirstStep" },
+      firstName: { value: "", isValid: false, step: "SecondStep" },
+      lastName: { value: "", isValid: false, step: "SecondStep" },
+      dateOfBirth: { value: "", isValid: false, step: "SecondStep" },
+      privacyPolicyAccepted: { value: "", isValid: false, step: "SecondStep" },
     });
     const updateUserData = ({ property, value }) => {
-      userData[property] = value;
+      userData[property].value = value;
+    };
+    const updateUserDataValidation = ({ property, isValid }) => {
+      userData[property].isValid = isValid;
     };
     provide("updateUserData", updateUserData);
+    provide("updateUserDataValidation", updateUserDataValidation);
     provide("userData", userData);
     return {
       activeTab,

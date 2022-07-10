@@ -32,7 +32,7 @@
   </div>
 </template>
 <script>
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 export default {
   props: {
     name: { type: String, required: true },
@@ -41,8 +41,8 @@ export default {
     label: { type: String, default: "" },
     rules: { type: Array, default: () => [] },
   },
-  emits: ["setValue"],
-  setup(props) {
+  emits: ["setValue", "setValueValidation"],
+  setup(props, context) {
     const value = ref("");
     const errors = computed(() => {
       if (props.rules.length) {
@@ -53,6 +53,19 @@ export default {
       }
       return [];
     });
+    const isValid = computed(() => {
+      if (props.rules.length) {
+        return (
+          value.value.length &&
+          errors.value.every((error) => error.checkResult && error.checked)
+        );
+      }
+      return value.value.length > 0;
+    });
+    watch(isValid, (newValidation) => {
+      context.emit("setValueValidation", newValidation);
+    });
+
     return {
       errors,
       value,
