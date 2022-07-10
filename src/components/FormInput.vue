@@ -38,12 +38,14 @@ export default {
   },
   setup(props) {
     const errors = computed(() => {
-      if (props.rules.length) {
+      if (props.rules.length == 3) {
         return [
           { message: "At least 8 characters" },
           { message: "At least one letter" },
           { message: "At least one digit" },
         ];
+      } else if (props.rules.length == 1) {
+        return [{ message: "You should be minium 18 years old" }];
       }
       return [];
     });
@@ -54,7 +56,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 input {
   background: #f7f7f7;
   border-radius: 8px;
