@@ -2,7 +2,7 @@
   <div class="step-wrapper">
     <div class="title-wrapper">
       <content-title
-        :text="`Good job ${name}!`"
+        :text="`Good job ${userData.firstName}!`"
         textColor="#343541"
       ></content-title>
     </div>
@@ -10,7 +10,7 @@
     <div class="message">
       <p>
         We have sent you an email to
-        <strong>{{ email }}</strong
+        <strong>{{ userData.email }}</strong
         >.
       </p>
       <p>
@@ -24,17 +24,16 @@
 </template>
 
 <script>
+import { inject } from "vue";
 import ContentTitle from "./ContentTitle.vue";
 import FormButton from "./FormButton.vue";
 export default {
   name: "RegistrationSummary",
   components: { ContentTitle, FormButton },
   setup() {
-    const name = "Georgia";
-    const email = "goerogia.swanson@monterail.com";
+    const userData = inject("userData");
     return {
-      name,
-      email,
+      userData,
     };
   },
 };

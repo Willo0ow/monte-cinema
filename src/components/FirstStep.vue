@@ -8,7 +8,7 @@
       ></content-title>
     </div>
     <div class="form-wrapper">
-      <form>
+      <form @submit="event.preventDefault()">
         <form-input
           v-for="(input, index) of inputs"
           :key="`input-${index}`"
@@ -17,10 +17,14 @@
           :type="input.type"
           :placeholder="input.placeholder"
           :rules="input.rules"
+          @setValue="(value) => updateUserData({ property: input.name, value })"
         />
         <div class="buttons-wrapper">
           <form-button label="Log in instead" :isPrimary="false"></form-button>
-          <form-button label="Next Step"></form-button>
+          <form-button
+            label="Next Step"
+            :action="() => setActiveTab('SecondStep')"
+          ></form-button>
         </div>
       </form>
     </div>
@@ -28,6 +32,7 @@
 </template>
 
 <script>
+import { inject } from "vue";
 import ContentTitle from "./ContentTitle.vue";
 import FormButton from "./FormButton.vue";
 import FormInput from "./FormInput.vue";
@@ -51,8 +56,12 @@ export default {
         rules: [1, 2, 3],
       },
     ];
+    const updateUserData = inject("updateUserData");
+    const setActiveTab = inject("setActiveTab");
     return {
       inputs,
+      updateUserData,
+      setActiveTab,
     };
   },
 };

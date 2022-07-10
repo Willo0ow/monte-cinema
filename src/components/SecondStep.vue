@@ -5,7 +5,7 @@
       <content-title text="Now your name" textColor="#85868d"></content-title>
     </div>
     <div class="form-wrapper">
-      <form>
+      <form @submit="event.preventDefault()">
         <form-input
           v-for="(input, index) of inputs"
           :key="`input-${index}`"
@@ -14,15 +14,23 @@
           :type="input.type"
           :placeholder="input.placeholder"
           :rules="input.rules"
+          @setValue="(value) => updateUserData({ property: input.name, value })"
         />
         <form-checkbox
           label="I accept Privacy Policy"
-          name="policy"
+          name="privacyPolicyAccepted"
           :rules="[]"
+          @setValue="
+            (value) =>
+              updateUserData({ property: 'privacyPolicyAccepted', value })
+          "
         />
         <div class="buttons-wrapper">
           <form-button label="Log in instead" :isPrimary="false"></form-button>
-          <form-button label="Register"></form-button>
+          <form-button
+            label="Register"
+            :action="() => setActiveTab('RegistrationSummary')"
+          ></form-button>
         </div>
       </form>
     </div>
@@ -30,6 +38,7 @@
 </template>
 
 <script>
+import { inject } from "vue";
 import ContentTitle from "./ContentTitle.vue";
 import FormButton from "./FormButton.vue";
 import FormCheckbox from "./FormCheckbox.vue";
@@ -41,28 +50,32 @@ export default {
     const inputs = [
       {
         label: "First name",
-        name: "first",
+        name: "firstName",
         type: "text",
         placeholder: "e.g. Jessica ",
         rules: [],
       },
       {
         label: "Last name",
-        name: "last",
+        name: "lastName",
         type: "text",
         placeholder: "e.g. Walton",
         rules: [],
       },
       {
         label: "Date of birth",
-        name: "birthdate",
+        name: "dateOfBirth",
         type: "text",
         placeholder: "DD / MM / YYYY",
         rules: [1],
       },
     ];
+    const updateUserData = inject("updateUserData");
+    const setActiveTab = inject("setActiveTab");
     return {
       inputs,
+      updateUserData,
+      setActiveTab,
     };
   },
 };

@@ -12,7 +12,8 @@
         :type="type"
         :name="name"
         :placeholder="placeholder"
-        @input="(event) => checkRules(event)"
+        v-model="value"
+        @input="(event) => $emit('setValue', event.target.value)"
       />
     </div>
     <div class="errors-wrapper">
@@ -27,7 +28,7 @@
   </div>
 </template>
 <script>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 export default {
   props: {
     name: { type: String, required: true },
@@ -36,7 +37,9 @@ export default {
     label: { type: String, default: "" },
     rules: { type: Array, default: () => [] },
   },
+  emits: ["setValue"],
   setup(props) {
+    const value = ref();
     const errors = computed(() => {
       if (props.rules.length == 3) {
         return [
@@ -51,6 +54,7 @@ export default {
     });
     return {
       errors,
+      value,
     };
   },
 };

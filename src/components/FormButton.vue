@@ -1,6 +1,7 @@
 <template>
   <button
     :class="{ 'secondary-button': !isPrimary, 'primary-button': isPrimary }"
+    @click="() => action()"
   >
     {{ label }}
   </button>
@@ -36,5 +37,10 @@ button {
 .secondary-button {
   color: #ec1115;
   background: none;
+}
+@media (max-width: 600px) {
+  button {
+    width: 100%;
+  }
 }
 </style>
