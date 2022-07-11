@@ -19,7 +19,9 @@ export default {
         name: "email",
         type: "email",
         placeholder: "Something ending with monterail.com",
-        rules: [],
+        rules: [
+          { check: (val) => /(\w{1,})(@)(\w{1,})(\.)(\w{1,})/.test(val) },
+        ],
       },
       {
         label: "Password",
