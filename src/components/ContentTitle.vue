@@ -1,5 +1,7 @@
 <template>
-  <h1 :style="{ color: textColor || 'inherit' }">{{ text }}</h1>
+  <h1 :style="{ color: textColor || 'inherit', 'text-align': textAlign }">
+    {{ text }}
+  </h1>
 </template>
 
 <script>
@@ -8,6 +10,7 @@ export default {
   props: {
     text: { type: String, required: true },
     textColor: { type: String, default: "" },
+    textAlign: { type: String, default: "start" },
   },
 };
 </script>
@@ -22,7 +25,7 @@ h1 {
   letter-spacing: -0.01em;
   margin: 0;
 }
-@media (max-width: 600px) {
+@media (max-width: 602px) {
   h1 {
     font-size: 40px;
     text-align: center;

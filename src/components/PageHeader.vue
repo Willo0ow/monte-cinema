@@ -33,7 +33,7 @@ export default {
 .red-font {
   color: red;
 }
-@media (max-width: 600px) {
+@media (max-width: 602px) {
   .slogan {
     display: none;
   }

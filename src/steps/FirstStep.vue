@@ -42,17 +42,23 @@ export default {
     ];
     const setActiveTab = inject("setActiveTab");
     const buttons = [
-      { label: "Log in instead", isPrimary: false, action: () => {} },
+      {
+        label: "Log in instead",
+        isPrimary: false,
+        action: () => {
+          window.location.assign("#");
+        },
+      },
       {
         label: "Next Step",
         isPrimary: true,
         action: () => setActiveTab("SecondStep"),
       },
     ];
-    const updateUserData = inject("updateUserData");
+    const setUserProperty = inject("setUserProperty");
     return {
       inputs,
-      updateUserData,
+      setUserProperty,
       setActiveTab,
       title,
       buttons,

@@ -4,10 +4,11 @@
       <content-title
         :text="`Good job ${userData.firstName.value}!`"
         textColor="#343541"
+        textAlign="center"
       ></content-title>
     </div>
 
-    <div class="message">
+    <div class="summary-message">
       <p>
         We have sent you an email to
         <strong>{{ userData.email.value }}</strong
@@ -18,7 +19,7 @@
       </p>
     </div>
     <div class="button-wrapper">
-      <form-button label="Go to homepage"></form-button>
+      <form-button label="Go to homepage" @click="goToHomepage"></form-button>
     </div>
   </div>
 </template>
@@ -32,8 +33,10 @@ export default {
   components: { ContentTitle, FormButton },
   setup() {
     const userData = inject("userData");
+    const goToHomepage = () => window.location.assign("#");
     return {
       userData,
+      goToHomepage,
     };
   },
 };
@@ -45,7 +48,7 @@ export default {
   justify-content: center;
   align-items: center;
 }
-.message {
+.summary-message {
   font-family: "Roboto";
   font-style: normal;
   font-weight: 400;
@@ -55,7 +58,7 @@ export default {
   color: #292a33;
   margin: 40px 0;
 }
-.message > p {
+.summary-message > p {
   margin: 0;
 }
 </style>

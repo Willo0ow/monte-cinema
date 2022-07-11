@@ -1,34 +1,10 @@
 <template>
   <step-content :inputs="inputs" :buttons="buttons" :title="title">
     <template #moreInputs>
-      <date-input
-        label="Date of birth"
-        name="dateOfBirth"
-        placeholder="DD / MM / YYYY"
-        @setValue="
-          (value) => updateUserData({ property: 'dateOfBirth', value })
-        "
-        @setValueValidation="
-          (isValid) =>
-            updateUserDataValidation({ property: 'dateOfBirth', isValid })
-        "
-        :rules="dateRules"
-      ></date-input>
       <custom-checkbox
-        label="I accept Privacy Policy"
+        label="I accept <a href='#'>Privacy Policy<a/>"
         name="privacyPolicyAccepted"
-        :rules="[]"
-        @setValue="
-          (value) =>
-            updateUserData({ property: 'privacyPolicyAccepted', value })
-        "
-        @setValueValidation="
-          (isValid) =>
-            updateUserDataValidation({
-              property: 'privacyPolicyAccepted',
-              isValid,
-            })
-        "
+        :rules="[{ check: (val) => !!val, message: 'Required' }]"
       />
     </template>
   </step-content>
@@ -37,32 +13,14 @@
 <script>
 import { inject } from "vue";
 import CustomCheckbox from "../components/inputs/CustomCheckbox.vue";
-import DateInput from "../components/inputs/DateInput.vue";
 import StepContent from "../components/StepContent.vue";
 export default {
   name: "PageContent",
   components: {
-    DateInput,
     CustomCheckbox,
     StepContent,
   },
   setup() {
-    const inputs = [
-      {
-        label: "First name",
-        name: "firstName",
-        type: "text",
-        placeholder: "e.g. Jessica ",
-        rules: [],
-      },
-      {
-        label: "Last name",
-        name: "lastName",
-        type: "text",
-        placeholder: "e.g. Walton",
-        rules: [],
-      },
-    ];
     const checkAge = (date) => {
       const [day, month, year] = date.split("/");
       let birthDate = new Date();
@@ -79,25 +37,59 @@ export default {
         message: "You should be minium 18 years old",
       },
     ];
-    const updateUserData = inject("updateUserData");
-    const updateUserDataValidation = inject("updateUserDataValidation");
+    const inputs = [
+      {
+        label: "First name",
+        name: "firstName",
+        type: "text",
+        placeholder: "e.g. Jessica ",
+        rules: [],
+      },
+      {
+        label: "Last name",
+        name: "lastName",
+        type: "text",
+        placeholder: "e.g. Walton",
+        rules: [],
+      },
+      {
+        label: "Date of birth",
+        name: "dateOfBirth",
+        type: "date",
+        placeholder: "DD / MM / YYYY",
+        rules: dateRules,
+        maxlength: "10",
+      },
+    ];
+
+    const setUserProperty = inject("setUserProperty");
+    const validateUserProperty = inject("validateUserProperty");
     const setActiveTab = inject("setActiveTab");
+    const register = () => {
+      setActiveTab("RegistrationSummary");
+    };
     const title = [
       { text: "Great!", color: "#343541" },
       { text: "Now your name", color: "#85868d" },
     ];
     const buttons = [
-      { label: "Log in instead", isPrimary: false, action: () => {} },
+      {
+        label: "Log in instead",
+        isPrimary: false,
+        action: () => {
+          window.location.assign("#");
+        },
+      },
       {
         label: "Register",
         isPrimary: true,
-        action: () => setActiveTab("RegistrationSummary"),
+        action: () => register(),
       },
     ];
     return {
       inputs,
-      updateUserData,
-      updateUserDataValidation,
+      setUserProperty,
+      validateUserProperty,
       setActiveTab,
       dateRules,
       buttons,

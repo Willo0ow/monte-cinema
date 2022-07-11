@@ -9,8 +9,8 @@
       ></content-title>
     </div>
     <div class="form-wrapper">
-      <form @submit="event.preventDefault()">
-        <text-input
+      <form @submit.prevent>
+        <universal-input
           v-for="(input, index) of inputs"
           :key="`input-${index}`"
           :label="input.label"
@@ -18,11 +18,6 @@
           :type="input.type"
           :placeholder="input.placeholder"
           :rules="input.rules"
-          @setValue="(value) => updateUserData({ property: input.name, value })"
-          @setValueValidation="
-            (isValid) =>
-              updateUserDataValidation({ property: input.name, isValid })
-          "
         />
         <slot name="moreInputs"></slot>
         <div class="buttons-wrapper">
@@ -40,25 +35,19 @@
 </template>
 
 <script>
-import { inject } from "vue";
 import ContentTitle from "./ContentTitle.vue";
 import FormButton from "./FormButton.vue";
-import TextInput from "./inputs/TextInput.vue";
+import UniversalInput from "./inputs/UniversalInput.vue";
 export default {
   name: "FormWrapper",
-  components: { ContentTitle, TextInput, FormButton },
+  components: { ContentTitle, UniversalInput, FormButton },
   props: {
     inputs: { type: Array, required: true },
     buttons: { type: Array, required: true },
     title: { type: Array, required: true },
   },
   setup() {
-    const updateUserData = inject("updateUserData");
-    const updateUserDataValidation = inject("updateUserDataValidation");
-    return {
-      updateUserData,
-      updateUserDataValidation,
-    };
+    return {};
   },
 };
 </script>
@@ -78,7 +67,7 @@ export default {
   justify-content: space-between;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 602px) {
   .buttons-wrapper {
     margin-top: 48px;
     display: flex;
@@ -88,7 +77,7 @@ export default {
   }
 
   .form-wrapper {
-    box-sizing: border-box;
+    padding: 24px;
     margin-top: 48px;
     background: #ffffff;
     box-shadow: none;

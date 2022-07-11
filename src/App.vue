@@ -2,7 +2,7 @@
   <div class="page">
     <page-header></page-header>
     <div id="content">
-      <component :is="activeTab" />
+      <component :is="activeStep" />
     </div>
   </div>
 </template>
@@ -17,20 +17,30 @@ export default {
   name: "App",
   components: { PageHeader, FirstStep, SecondStep, RegistrationSummary },
   setup() {
-    const activeTab = ref("FirstStep");
+    const activeStep = ref("FirstStep");
+    provide("activeStep", activeStep);
+    const useStepValidation = reactive({
+      FirstStep: false,
+      SecondStep: false,
+      RegistrationSummary: false,
+    });
+    provide("useStepValidation", useStepValidation);
+
+    const checkStepValidation = () => {
+      return Object.keys(userData).reduce((isStepPropertiesValid, property) => {
+        isStepPropertiesValid =
+          userData[property].step === activeStep.value
+            ? isStepPropertiesValid && userData[property].isValid
+            : isStepPropertiesValid;
+        return isStepPropertiesValid;
+      }, true);
+    };
     const setActiveTab = (newTab) => {
-      const isStepFormValid = Object.keys(userData).reduce(
-        (allValid, property) => {
-          allValid =
-            userData[property].step === activeTab.value
-              ? allValid && userData[property].isValid
-              : allValid;
-          return allValid;
-        },
-        true
-      );
+      const isStepFormValid = checkStepValidation();
       if (isStepFormValid) {
-        activeTab.value = newTab;
+        activeStep.value = newTab;
+      } else {
+        useStepValidation[activeStep.value] = true;
       }
     };
     provide("setActiveTab", setActiveTab);
@@ -42,17 +52,18 @@ export default {
       dateOfBirth: { value: "", isValid: false, step: "SecondStep" },
       privacyPolicyAccepted: { value: "", isValid: false, step: "SecondStep" },
     });
-    const updateUserData = ({ property, value }) => {
+    const setUserProperty = ({ property, value }) => {
       userData[property].value = value;
     };
-    const updateUserDataValidation = ({ property, isValid }) => {
+    const validateUserProperty = ({ property, isValid }) => {
       userData[property].isValid = isValid;
     };
-    provide("updateUserData", updateUserData);
-    provide("updateUserDataValidation", updateUserDataValidation);
+    provide("setUserProperty", setUserProperty);
+    provide("validateUserProperty", validateUserProperty);
     provide("userData", userData);
     return {
-      activeTab,
+      activeStep,
+      useStepValidation,
     };
   },
 };

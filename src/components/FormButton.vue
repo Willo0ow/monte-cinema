@@ -34,11 +34,19 @@ button {
   color: #ffffff;
   background: #ec1115;
 }
+button.primary-button:hover {
+  background: #a60c0e;
+}
+
+button.primary-button:active {
+  background: #a60c0e;
+  border: 5px solid #f47073;
+}
 .secondary-button {
   color: #ec1115;
   background: none;
 }
-@media (max-width: 600px) {
+@media (max-width: 602px) {
   button {
     width: 100%;
   }
