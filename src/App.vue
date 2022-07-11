@@ -86,5 +86,8 @@ body {
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
+  min-height: 700px;
+  position: relative;
+  top: 98px;
 }
 </style>

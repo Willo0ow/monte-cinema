@@ -83,7 +83,6 @@ export default {
     box-shadow: none;
   }
   .step-wrapper {
-    padding: 24px;
     width: 100%;
   }
 }

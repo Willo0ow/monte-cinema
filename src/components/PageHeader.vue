@@ -22,6 +22,10 @@ export default {
   justify-content: space-between;
   align-items: center;
   box-sizing: border-box;
+  position: fixed;
+  width: 100%;
+  background: white;
+  z-index: 2;
 }
 .slogan {
   font-family: "Roboto Mono", monospace;

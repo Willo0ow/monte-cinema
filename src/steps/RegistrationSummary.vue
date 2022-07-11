@@ -1,5 +1,5 @@
 <template>
-  <div class="step-wrapper">
+  <div class="step-wrapper" style="padding: 24px">
     <div class="title-wrapper">
       <content-title
         :text="`Good job ${userData.firstName.value}!`"

@@ -1,5 +1,8 @@
 <template>
-  <h1 :style="{ color: textColor || 'inherit', 'text-align': textAlign }">
+  <h1
+    :style="{ color: textColor || 'inherit' }"
+    :class="{ centered: textAlign === 'center' }"
+  >
     {{ text }}
   </h1>
 </template>
@@ -24,6 +27,9 @@ h1 {
   /* or 82px */
   letter-spacing: -0.01em;
   margin: 0;
+}
+.centered {
+  text-align: center;
 }
 @media (max-width: 602px) {
   h1 {

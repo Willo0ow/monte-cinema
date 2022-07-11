@@ -1,4 +1,1 @@
 # read.me
-# empty links login, homepage, privacy terms
-# media query breakpoint
-# fixed header -> nav
