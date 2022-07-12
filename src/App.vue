@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <page-header></page-header>
-    <div id="content">
+    <div id="content" :class="{ [activeStep]: true }">
       <component :is="activeStep" />
     </div>
   </div>
@@ -86,14 +86,27 @@ body {
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  min-height: 700px;
   position: relative;
   top: 98px;
 }
-
+#content.FirstStep {
+  min-height: 700px;
+}
+#content.SecondStep {
+  min-height: 780px;
+}
+#content.RegistrationSummary {
+  min-height: 400px;
+}
 @media (max-width: 602px) {
-  #content {
-    min-height: 600px;
+  #content.FirstStep {
+    min-height: 570px;
+  }
+  #content.SecondStep {
+    min-height: 660px;
+  }
+  #content.RegistrationSummary {
+    min-height: 400px;
   }
 }
 </style>

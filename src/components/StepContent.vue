@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import { onMounted } from "vue";
 import ContentTitle from "./ContentTitle.vue";
 import FormButton from "./FormButton.vue";
 import UniversalInput from "./inputs/UniversalInput.vue";
@@ -47,6 +48,9 @@ export default {
     title: { type: Array, required: true },
   },
   setup() {
+    onMounted(() => {
+      window.scrollTo(0, 0);
+    });
     return {};
   },
 };
