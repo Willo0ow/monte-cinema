@@ -77,7 +77,7 @@ export default {
   }
 
   .form-wrapper {
-    padding: 24px;
+    padding: 0 24px 24px;
     margin-top: 48px;
     background: #ffffff;
     box-shadow: none;

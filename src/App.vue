@@ -90,4 +90,10 @@ body {
   position: relative;
   top: 98px;
 }
+
+@media (max-width: 602px) {
+  #content {
+    min-height: 600px;
+  }
+}
 </style>
