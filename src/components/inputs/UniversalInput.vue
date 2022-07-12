@@ -64,7 +64,10 @@ export default {
           return {
             text: rule.message,
             checkResult,
-            checked: !!inputValue.value,
+            checked:
+              !!inputValue.value ||
+              useInputValidation.value ||
+              useStepValidation[activeStep.value],
           };
         });
       }
